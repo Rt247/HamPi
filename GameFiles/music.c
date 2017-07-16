@@ -6,52 +6,50 @@
 #include <SDL2/SDL_timer.h>
 #include <stdlib.h>
 #include "music.h"
-#include "SDL2/SDL_mixer.h"
 
-void initialiseSDLMixer(){
+void initialiseSDLMixer() {
   //Initialize SDL_mixer
-  if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024)==-1)
-  {
+  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
     perror("Mixer failed to initialise");
   }
 
-  helperMusic = Mix_LoadMUS("Music/Batman.mp3");
-  if(helperMusic == NULL){
+  helperMusic = Mix_LoadMUS("../Music/Batman.mp3");
+  if (helperMusic == NULL) {
     printf("DIDNT LOAD FILE batman music");
   }
-  introMusic = Mix_LoadMUS("Music/Arpanauts.mp3");
-  if(introMusic == NULL){
+  introMusic = Mix_LoadMUS("../Music/Arpanauts.mp3");
+  if (introMusic == NULL) {
     printf("DIDNT LOAD FILE intro music ");
   }
-  levelMusic1 = Mix_LoadMUS("Music/Eric_Skiff_-_01_-_A_Night_Of_Dizzy_Spells.mp3");
-  if(levelMusic1 == NULL){
+  levelMusic1 = Mix_LoadMUS("../Music/Eric_Skiff_-_01_-_A_Night_Of_Dizzy_Spells.mp3");
+  if (levelMusic1 == NULL) {
     printf("DIDNT LOAD FILE intro music ");
   }
-  levelMusic2 = Mix_LoadMUS("Music/Eric_Skiff_-_08_-_Ascending.mp3");
-  if(levelMusic2 == NULL){
+  levelMusic2 = Mix_LoadMUS("../Music/Eric_Skiff_-_08_-_Ascending.mp3");
+  if (levelMusic2 == NULL) {
     printf("DIDNT LOAD FILE intro music ");
   }
-  levelMusic3 = Mix_LoadMUS("Music/Eric_Skiff_-_03_-_Chibi_Ninja.mp3");
-  if(levelMusic3 == NULL){
+  levelMusic3 = Mix_LoadMUS("../Music/Eric_Skiff_-_03_-_Chibi_Ninja.mp3");
+  if (levelMusic3 == NULL) {
     printf("DIDNT LOAD FILE intro music ");
   }
-  levelMusic4 = Mix_LoadMUS("Music/Eric_Skiff_-_02_-_Underclocked_underunderclocked_mix.mp3");
-  if(levelMusic4 == NULL){
+  levelMusic4 = Mix_LoadMUS("../Music/Eric_Skiff_-_02_-_Underclocked_underunderclocked_mix.mp3");
+  if (levelMusic4 == NULL) {
     printf("DIDNT LOAD FILE intro music ");
   }
   levelMusic5 = Mix_LoadMUS
-      ("Music/Eric_Skiff_-_05_-_Come_and_Find_Me.mp3");
-  if(levelMusic5 == NULL){
+      ("../Music/Eric_Skiff_-_05_-_Come_and_Find_Me.mp3");
+  if (levelMusic5 == NULL) {
     printf("DIDNT LOAD FILE intro music ");
   }
   endMusic = Mix_LoadMUS
-      ("Music/endTheme.mp3");
-  if(endMusic == NULL){
+      ("../Music/endTheme.mp3");
+  if (endMusic == NULL) {
     printf("DIDNT LOAD FILE intro music ");
   }
 }
 
-void clearUpSDLMusic(){
+void clearUpSDLMusic() {
   Mix_FreeMusic(helperMusic);
   Mix_FreeMusic(introMusic);
   Mix_FreeMusic(levelMusic1);
@@ -63,13 +61,13 @@ void clearUpSDLMusic(){
   Mix_CloseAudio();
 }
 
-void playMusic(Mix_Music *music){
+void playMusic(Mix_Music *music) {
   Mix_PlayMusic(music, -1);
 }
 
-void playLevelMusic(){
+void playLevelMusic() {
   int randSong = (rand() % 5) + 1;
-  switch(randSong){
+  switch (randSong) {
     case 1:
       Mix_PlayMusic(levelMusic1, -1);
       break;
@@ -82,13 +80,13 @@ void playLevelMusic(){
     case 4:
       Mix_PlayMusic(levelMusic4, -1);
       break;
-    case 5:
+    default:
       Mix_PlayMusic(levelMusic5, -1);
-      break;
   }
 }
-void stopMusic(int time){
-  while(!Mix_FadeOutMusic(time) && Mix_PlayingMusic()) {
+
+void stopMusic(int time) {
+  while (!Mix_FadeOutMusic(time) && Mix_PlayingMusic()) {
     SDL_Delay(100);
   }
 }

@@ -23,7 +23,7 @@ void initialiseSDL() {
                             SDL_WINDOWPOS_CENTERED,
                             SCREEN_WIDTH + SCREEN_SIDEBAR_WIDTH, SCREEN_HEIGHT,
                             SDL_WINDOW_RESIZABLE);
-  if(window == NULL){
+  if (window == NULL) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL window:"
         " %s", SDL_GetError());
     exit(EXIT_FAILURE);
@@ -31,34 +31,34 @@ void initialiseSDL() {
 
   //Creates the renderer
   renderer = SDL_CreateRenderer(window, -1, 0);
-  if(renderer == NULL){
+  if (renderer == NULL) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL "
         "renderer:" " %s", SDL_GetError());
     exit(EXIT_FAILURE);
   }
 
 
-  loadTexture("Images/blank_image.bmp", &blank_texture);
-  loadTexture("Images/floor_image.bmp", &floor_texture);
-  loadTexture("Images/cracked_image.bmp", &cracked_texture);
-  loadTexture("Images/player_image.bmp", &player_texture);
-  loadTexture("Images/end_pos_image.bmp", &endpos_texture);
-  loadTexture("Images/splash_screen_image.bmp", &splash_screen);
-  loadTexture("Images/menu_background_image.bmp", &main_menu_background);
-  loadTexture("Images/level_menu_background_image.bmp", &level_menu_background);
-  loadTexture("Images/options_menu_background_image.bmp", &options_menu_background);
-  loadTexture("Images/end_level_menu_background_image.bmp", &end_level_menu_background);
-  loadTexture("Images/queens_tower.bmp", &queen_texture);
-  loadTexture("Images/credits_menu_background_image.bmp", &credit_screen);
-  loadTexture("Images/end_screen_image.bmp", &end_screen);
-  loadTexture("Images/intro_screen_image.bmp", &intro_screen);
-  loadTexture("Images/queens_tower_imperial.bmp", &queen_texture_imperial);
-  loadTexture("Images/tony_image.bmp", &tony_texture);
-  loadTexture("Images/side_helper_image.bmp", &side_helper_texture);
+  loadTexture("../Images/blank_image.bmp", &blank_texture);
+  loadTexture("../Images/floor_image.bmp", &floor_texture);
+  loadTexture("../Images/cracked_image.bmp", &cracked_texture);
+  loadTexture("../Images/player_image.bmp", &player_texture);
+  loadTexture("../Images/end_pos_image.bmp", &endpos_texture);
+  loadTexture("../Images/splash_screen_image.bmp", &splash_screen);
+  loadTexture("../Images/menu_background_image.bmp", &main_menu_background);
+  loadTexture("../Images/level_menu_background_image.bmp", &level_menu_background);
+  loadTexture("../Images/options_menu_background_image.bmp", &options_menu_background);
+  loadTexture("../Images/end_level_menu_background_image.bmp", &end_level_menu_background);
+  loadTexture("../Images/queens_tower.bmp", &queen_texture);
+  loadTexture("../Images/credits_menu_background_image.bmp", &credit_screen);
+  loadTexture("../Images/end_screen_image.bmp", &end_screen);
+  loadTexture("../Images/intro_screen_image.bmp", &intro_screen);
+  loadTexture("../Images/queens_tower_imperial.bmp", &queen_texture_imperial);
+  loadTexture("../Images/tony_image.bmp", &tony_texture);
+  loadTexture("../Images/side_helper_image.bmp", &side_helper_texture);
 
 
   TTF_Init();
-  inifinity = TTF_OpenFont("Fonts/Infinity.ttf", 30);
+  inifinity = TTF_OpenFont("../Fonts/Infinity.ttf", 30);
 
   surface = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0, 0, 0,
                                  0);
@@ -69,11 +69,11 @@ void initialiseSDL() {
  * @param fileName is the name of the file to load
  * @param loadTexture is the name of the
  */
-void loadTexture(char *fileName, SDL_Texture **loadTexture){
+void loadTexture(char *fileName, SDL_Texture **loadTexture) {
 
   SDL_Surface *loadingSurface = NULL;
   loadingSurface = SDL_LoadBMP(fileName);
-  if(loadingSurface == NULL){
+  if (loadingSurface == NULL) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL "
         "Texture:"
         " %s", SDL_GetError());
@@ -84,8 +84,6 @@ void loadTexture(char *fileName, SDL_Texture **loadTexture){
   SDL_FreeSurface(loadingSurface);
 
 }
-
-
 
 
 /**
@@ -136,7 +134,7 @@ void renderStage(squareState **map, playerPosition endPos, int rows, int cols) {
  * condition for the game loop
  */
 int renderUpdateStage(playerPosition newPosition, int firstTime, int rows,
-                      int cols,SDL_Texture *curr_texture) {
+                      int cols, SDL_Texture *curr_texture) {
   static playerPosition previousPos;
   int x_disp = (int) ((SCREEN_WIDTH - cols * SQUARE_SIZE) / 2);
   int y_disp = (int) ((SCREEN_HEIGHT - rows * SQUARE_SIZE) / 2);
@@ -227,7 +225,7 @@ char *renderUpdateTime(gameState_t *currGame) {
   return str;
 }
 
-char *convertTimetoStr(uint32_t time){
+char *convertTimetoStr(uint32_t time) {
   static char str[10];
   int milliseconds = time % 1000;
   int seconds = time / 1000;
@@ -271,9 +269,9 @@ void renderLevelCounter(gameState_t *currGame) {
   SDL_Rect destRect;
   destRect.x = SCREEN_WIDTH;
   destRect.y = (SCREEN_HEIGHT - 100) - ((displacement * currGame->levelCount)
-                                       * 5)/6;
+                                        * 5) / 6;
   destRect.w = SCREEN_SIDEBAR_WIDTH;
-  destRect.h = (displacement * currGame->levelCount * 5)/ 6;
+  destRect.h = (displacement * currGame->levelCount * 5) / 6;
 
   SDL_Rect srcRect;
   srcRect.x = 0;
@@ -433,21 +431,21 @@ void renderLeaderboard(gameState_t *currGame) {
                                                                    current->next) {
 
     char str[11];
-    if(current->time != (uint32_t) -1){
+    if (current->time != (uint32_t) -1) {
       strcpy(str, convertTimetoStr(current->time));
     } else {
       strcpy(str, "-");
     }
-      leaderBoard_surface = TTF_RenderText_Solid(inifinity, str, color);
-      leaderboardTexture = SDL_CreateTextureFromSurface(renderer,
-                                                        leaderBoard_surface);
+    leaderBoard_surface = TTF_RenderText_Solid(inifinity, str, color);
+    leaderboardTexture = SDL_CreateTextureFromSurface(renderer,
+                                                      leaderBoard_surface);
 
-      leaderboard.y = 100 + (i * (400 / 3));
+    leaderboard.y = 100 + (i * (400 / 3));
 
-      SDL_RenderCopy(renderer, leaderboardTexture, NULL, &leaderboard);
-      SDL_FreeSurface(leaderBoard_surface);
-      i++;
-    }
+    SDL_RenderCopy(renderer, leaderboardTexture, NULL, &leaderboard);
+    SDL_FreeSurface(leaderBoard_surface);
+    i++;
+  }
 }
 
 /**
@@ -502,7 +500,7 @@ void renderTimer(char *displayText) {
  */
 void draw_solution(gameState_t *currGame) {
   resetLevel(currGame);
-  renderRect(renderer,SCREEN_WIDTH,0,SCREEN_SIDEBAR_WIDTH,SCREEN_HEIGHT,0,0,
+  renderRect(renderer, SCREEN_WIDTH, 0, SCREEN_SIDEBAR_WIDTH, SCREEN_HEIGHT, 0, 0,
              0);
   SDL_RenderPresent(renderer);
   playMusic(helperMusic);
@@ -518,7 +516,7 @@ void draw_solution(gameState_t *currGame) {
   stopMusic(2000);
 }
 
-void renderSideHelper(int i, int displacement){
+void renderSideHelper(int i, int displacement) {
 
   SDL_Rect destRect;
   destRect.x = SCREEN_WIDTH;
@@ -551,7 +549,7 @@ void renderCredits() {
   SDL_RenderPresent(renderer);
 }
 
-void renderEndSideMenu(){
+void renderEndSideMenu() {
 
   SDL_Rect destRect;
   destRect.x = 600;
