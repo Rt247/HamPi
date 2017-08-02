@@ -128,6 +128,7 @@ void creditMenuLogic(gameState_t *currGame) {
   int game_running = 1;
   //Loop for getting the user input to continue
   while (game_running) {
+    int lastTicks = SDL_GetTicks();
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
       currGame->gameIsRunning = 0;
@@ -137,7 +138,11 @@ void creditMenuLogic(gameState_t *currGame) {
     if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_a) {
       game_running = 0;
     }
-    SDL_Delay(120);
+    int delay = 1000 / MENU_FPS_LIMIT - SDL_GetTicks() + lastTicks;
+    if (delay > 0) {
+      SDL_Delay(delay);
+    }
+    // SDL_Delay(120);
     SDL_RenderPresent(renderer);
   }
 }
@@ -436,6 +441,7 @@ menuOptions_t getMenuInput(menuOptions_t choices[], int num_options,
   int game_running = 1;
   //The loop for the input choices
   while (game_running) {
+    int lastTicks = SDL_GetTicks();
 
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
@@ -497,7 +503,11 @@ menuOptions_t getMenuInput(menuOptions_t choices[], int num_options,
                         X_WIDTH_SIZE,
                         Y_WIDTH_SIZE, 0, 0, 255);
     }
-    SDL_Delay(120);
+    int delay = 1000 / MENU_FPS_LIMIT - SDL_GetTicks() + lastTicks;
+    if (delay > 0) {
+      SDL_Delay(delay);
+    }
+    // SDL_Delay(120);
     SDL_RenderPresent(renderer);
   }
   return choices[index];
@@ -526,7 +536,7 @@ menuOptions_t getOptMenuInput(gameState_t *currGame) {
   //The loop for the input choices based on when the user selects the option
   //The selection options are hard coded in the switch cases
   while (game_running) {
-
+    int lastTicks = SDL_GetTicks();
     SDL_PollEvent(&event);
     if (event.type == SDL_QUIT) {
       game_running = 0;
@@ -685,7 +695,11 @@ menuOptions_t getOptMenuInput(gameState_t *currGame) {
           break;
       }
     }
-    SDL_Delay(120);
+    int delay = 1000 / MENU_FPS_LIMIT - SDL_GetTicks() + lastTicks;
+    if (delay > 0) {
+      SDL_Delay(delay);
+    }
+    // SDL_Delay(120);
 
   }
   return EXIT;
