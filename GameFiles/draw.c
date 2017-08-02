@@ -278,7 +278,7 @@ void renderLevelCounter(gameState_t *currGame) {
   srcRect.h = displacement * (currGame->levelCount);
 
   SDL_RenderCopy(renderer, queen_texture_imperial, &srcRect, &destRect);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 }
 
 
@@ -381,7 +381,7 @@ void renderMenu(SDL_Texture *menu_background) {
   destRect.w = SCREEN_WIDTH;
   destRect.h = SCREEN_HEIGHT;
   SDL_RenderCopy(renderer, menu_background, NULL, &destRect);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 }
 
 /**
@@ -396,7 +396,7 @@ void renderSideMenuTimer() {
   destRect.h = SCREEN_HEIGHT - 100;
 
   SDL_RenderCopy(renderer, queen_texture, NULL, &destRect);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 }
 
 /**
@@ -485,7 +485,7 @@ void renderTimer(char *displayText) {
   timerLocation.w = SCREEN_SIDEBAR_WIDTH;
   timerLocation.h = 100;
   SDL_RenderCopy(renderer, timerTexture, NULL, &timerLocation);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
   SDL_FreeSurface(surfaceTimer);
 }
 
@@ -526,7 +526,7 @@ void renderSideHelper(int i, int displacement) {
   srcRect.h = displacement * i;
 
   SDL_RenderCopy(renderer, side_helper_texture, &srcRect, &destRect);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 }
 
 
@@ -541,7 +541,7 @@ void renderCredits() {
   destRect.h = SCREEN_HEIGHT;
   renderSideMenu();
   SDL_RenderCopy(renderer, credit_screen, NULL, &destRect);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 }
 
 void renderEndSideMenu() {
@@ -553,6 +553,6 @@ void renderEndSideMenu() {
   destRect.h = SCREEN_HEIGHT;
 
   SDL_RenderCopy(renderer, queen_texture_imperial, NULL, &destRect);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 
 }
