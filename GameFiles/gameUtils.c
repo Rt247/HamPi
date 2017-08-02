@@ -78,24 +78,14 @@ leaderBoard *allocateLeaderBoard(void) {
 
 move getMove(squareState **currentMap, playerPosition *currentPos,
              int rows, int cols) {
-  if (event.type == SDL_KEYDOWN && event.key.keysym.sym ==
-                                   SDLK_UP) {
-    return UP;
-  }
-
-  if (event.type == SDL_KEYDOWN && event.key.keysym.sym ==
-                                   SDLK_DOWN) {
-    return DOWN;
-  }
-
-  if (event.type == SDL_KEYDOWN && event.key.keysym.sym ==
-                                   SDLK_LEFT) {
-    return LEFT;
-  }
-
-  if (event.type == SDL_KEYDOWN && event.key.keysym.sym ==
-                                   SDLK_RIGHT) {
-    return RIGHT;
+  if (event.type == SDL_KEYDOWN) {
+    switch (event.key.keysym.sym) {
+      case SDLK_UP: return UP;
+      case SDLK_DOWN: return DOWN;
+      case SDLK_LEFT: return LEFT;
+      case SDLK_RIGHT: return RIGHT;
+      default: return NO_MOVE;
+    }
   }
   return NO_MOVE;
 }

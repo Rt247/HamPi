@@ -21,72 +21,85 @@
 #define Y_WIDTH_SIZE_OPT 55
 #define X_WIDTH_SIZE_OPT 144
 
-typedef enum gameMode{
-    RANDOM,
-    SAVED
-}gameMode_t;
+typedef enum gameMode {
+  RANDOM,
+  SAVED
+} gameMode_t;
 
-typedef enum difficultyMode{
-    EASY = 4,
-    MEDIUM = 7,
-    HARD = 10
-}difficultyMode_t;
+typedef enum difficultyMode {
+  EASY = 4,
+  MEDIUM = 7,
+  HARD = 10
+} difficultyMode_t;
 
-typedef struct gameState{
-    int nMoves;
-    int rows;
-    int cols;
-    squareState **level;
-    squareState **levelMap;
-    playerPosition playerPos;
-    playerPosition initPosLevel;
-    int count;
-    int gameIsRunning;
-    gameMode_t currGameMode;
-    difficultyMode_t difficultyGameMode;
-    uint32_t timer_count;
-    uint32_t start_time;
-    uint32_t level_menu_timer;
-    playerPosition *solArray[144];
-    leaderBoard *head;
-    playerPosition endPosLevel;
-    int levelCount;
+typedef struct gameState {
+  int nMoves;
+  int rows;
+  int cols;
+  squareState **level;
+  squareState **levelMap;
+  playerPosition playerPos;
+  playerPosition initPosLevel;
+  int count;
+  int gameIsRunning;
+  gameMode_t currGameMode;
+  difficultyMode_t difficultyGameMode;
+  uint32_t timer_count;
+  uint32_t start_time;
+  uint32_t level_menu_timer;
+  playerPosition *solArray[144];
+  leaderBoard *head;
+  playerPosition endPosLevel;
+  int levelCount;
 
 } gameState_t;
 
 
-
-typedef enum menuOptions{
-    START,
-    OPTIONS,
-    CREDITS,
-    EXIT,
-    NOTHING,
-    RESUME,
-    MAIN_MENU,
-    SAVE_LEVEL,
-    NEXT_LEVEL,
-    GAME_MODE,
-    DIFFICULTY,
-    GIVE_UP
+typedef enum menuOptions {
+  START,
+  OPTIONS,
+  CREDITS,
+  EXIT,
+  NOTHING,
+  RESUME,
+  MAIN_MENU,
+  SAVE_LEVEL,
+  NEXT_LEVEL,
+  GAME_MODE,
+  DIFFICULTY,
+  GIVE_UP
 } menuOptions_t;
 
 void loadRandomLevel(gameState_t *currGame);
+
 void loadSavedLevel(gameState_t *currGame);
+
 void mainMenuLogic(gameState_t *currGame);
+
 void levelMenuLogic(gameState_t *currGame);
+
 void creditMenuLogic(gameState_t *currGame);
+
 void endlevelMenuLogic(gameState_t *currGame);
+
 void initialiseGameState(gameState_t *currGame);
+
 void initialiseLeaderboard(gameState_t *currGame);
+
 menuOptions_t getMenuInput(menuOptions_t choices[], int num_options,
-                               SDL_Texture *menu_background, int isEndLevel,
-                               gameState_t *currGame);
+                           SDL_Texture *menu_background, int isEndLevel,
+                           gameState_t *currGame);
+
 menuOptions_t getOptMenuInput(gameState_t *currGame);
+
 void resetLevel(gameState_t *currGame);
+
 void findPlayerPos(gameState_t *currGame);
+
 void saveLevel(gameState_t *currGame);
+
 void incrementLevel(gameState_t *currGame);
+
 void freeCurrGame(gameState_t *currGame);
 
 

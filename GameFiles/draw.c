@@ -58,7 +58,7 @@ void initialiseSDL() {
 
 
   TTF_Init();
-  inifinity = TTF_OpenFont("../Fonts/Infinity.ttf", 30);
+  infinityFont = TTF_OpenFont("../Fonts/Infinity.ttf", 30);
 
   surface = SDL_CreateRGBSurface(0, SCREEN_WIDTH, SCREEN_HEIGHT, 32, 0, 0, 0,
                                  0);
@@ -410,7 +410,7 @@ void renderSideMenuTimer() {
 void renderLeaderboard(gameState_t *currGame) {
 
   SDL_Color color = {0, 255, 255};
-  SDL_Surface *leaderBoard_surface = TTF_RenderText_Solid(inifinity,
+  SDL_Surface *leaderBoard_surface = TTF_RenderText_Solid(infinityFont,
                                                           "Leaderboard", color);
 
   SDL_Texture *leaderboardTexture = SDL_CreateTextureFromSurface(renderer,
@@ -436,7 +436,7 @@ void renderLeaderboard(gameState_t *currGame) {
     } else {
       strcpy(str, "-");
     }
-    leaderBoard_surface = TTF_RenderText_Solid(inifinity, str, color);
+    leaderBoard_surface = TTF_RenderText_Solid(infinityFont, str, color);
     leaderboardTexture = SDL_CreateTextureFromSurface(renderer,
                                                       leaderBoard_surface);
 
@@ -478,7 +478,7 @@ void renderSideMenu() {
  */
 void renderTimer(char *displayText) {
   SDL_Color color = {0, 255, 255};
-  SDL_Surface *surfaceTimer = TTF_RenderText_Solid(inifinity,
+  SDL_Surface *surfaceTimer = TTF_RenderText_Solid(infinityFont,
                                                    displayText, color);
 
   SDL_Texture *timerTexture = SDL_CreateTextureFromSurface(renderer,
