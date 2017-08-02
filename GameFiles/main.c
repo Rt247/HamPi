@@ -68,6 +68,7 @@ int main(int argc, char *argv[]) {
 
       //TODO GET NES INPUT  HERE
 
+      int lastTicks = SDL_GetTicks();
 
       if (!Mix_PlayingMusic()) {
         playLevelMusic();
@@ -138,7 +139,11 @@ int main(int argc, char *argv[]) {
 
         //Render everything to the screen as well delay
         SDL_RenderPresent(renderer);
-        SDL_Delay(100);
+
+        int delay = 1000 / MENU_FPS_LIMIT - SDL_GetTicks() + lastTicks;
+        if (delay > 0) {
+          SDL_Delay(delay);
+        }
       }
 
     }

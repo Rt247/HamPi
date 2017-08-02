@@ -710,7 +710,6 @@ menuOptions_t getOptMenuInput(gameState_t *currGame) {
  * @param currGame is the gamestate struct
  */
 void resetLevel(gameState_t *currGame) {
-  printf("Resetting...\n");
   setLevel(currGame->level, currGame->levelMap, &
                (currGame->playerPos),
            &(currGame->initPosLevel),

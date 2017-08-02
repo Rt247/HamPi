@@ -501,12 +501,16 @@ void draw_solution(gameState_t *currGame) {
   playMusic(helperMusic);
 
   for (int i = 0; i < currGame->count; i++) {
+    int lastTicks = SDL_GetTicks();
     renderUpdateStage(*(currGame->solArray[i]), 0, currGame->rows,
                       currGame->cols, tony_texture);
     int displacement = SCREEN_HEIGHT / (currGame->count - 1);
     renderSideHelper(i + 1, displacement);
     SDL_RenderPresent(renderer);
-    SDL_Delay(400);
+    int delay = 1000 / GIVE_UP_FPS_LIMIT - SDL_GetTicks() + lastTicks;
+    if (delay > 0) {
+      SDL_Delay(delay);
+    }
   }
   stopMusic(2000);
 }
