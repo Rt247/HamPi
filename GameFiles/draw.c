@@ -74,9 +74,8 @@ void loadTexture(char *fileName, SDL_Texture **loadTexture) {
   SDL_Surface *loadingSurface = NULL;
   loadingSurface = SDL_LoadBMP(fileName);
   if (loadingSurface == NULL) {
-    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL "
-        "Texture:"
-        " %s", SDL_GetError());
+    SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
+                 "Couldn't initialize SDL Texture: %s", SDL_GetError());
     printf("%s\n", fileName);
     exit(EXIT_FAILURE);
   }
@@ -95,8 +94,8 @@ void loadTexture(char *fileName, SDL_Texture **loadTexture) {
  */
 void renderStage(squareState **map, playerPosition endPos, int rows, int cols) {
 
-  int x_disp = (int) ((SCREEN_WIDTH - cols * SQUARE_SIZE) / 2);
-  int y_disp = (int) ((SCREEN_HEIGHT - rows * SQUARE_SIZE) / 2);
+  int x_disp = (SCREEN_WIDTH - cols * SQUARE_SIZE) / 2;
+  int y_disp = (SCREEN_HEIGHT - rows * SQUARE_SIZE) / 2;
 
   for (int r = 0; r < rows; ++r) {
     for (int c = 0; c < cols; ++c) {
@@ -118,9 +117,9 @@ void renderStage(squareState **map, playerPosition endPos, int rows, int cols) {
   }
 
   //draw end position
-  renderImage(endPos.c * SQUARE_SIZE + x_disp, endPos.r * SQUARE_SIZE +
-                                               y_disp, SQUARE_SIZE, SQUARE_SIZE,
-              endpos_texture);
+  renderImage(endPos.c * SQUARE_SIZE + x_disp,
+              endPos.r * SQUARE_SIZE + y_disp,
+              SQUARE_SIZE, SQUARE_SIZE, endpos_texture);
 }
 
 /**
@@ -136,8 +135,8 @@ void renderStage(squareState **map, playerPosition endPos, int rows, int cols) {
 int renderUpdateStage(playerPosition newPosition, int firstTime, int rows,
                       int cols, SDL_Texture *curr_texture) {
   static playerPosition previousPos;
-  int x_disp = (int) ((SCREEN_WIDTH - cols * SQUARE_SIZE) / 2);
-  int y_disp = (int) ((SCREEN_HEIGHT - rows * SQUARE_SIZE) / 2);
+  int x_disp = (SCREEN_WIDTH - cols * SQUARE_SIZE) / 2;
+  int y_disp = (SCREEN_HEIGHT - rows * SQUARE_SIZE) / 2;
   if (firstTime) {
     previousPos = newPosition;
     return 1;
@@ -154,7 +153,6 @@ int renderUpdateStage(playerPosition newPosition, int firstTime, int rows,
                                                     SQUARE_SIZE +
                                                     y_disp,
               SQUARE_SIZE, SQUARE_SIZE, curr_texture);
-
 
   previousPos = newPosition;
   return 1;
@@ -368,7 +366,7 @@ void renderIntroScreen() {
   destRect.h = SCREEN_HEIGHT;
   renderSideMenu();
   SDL_RenderCopy(renderer, intro_screen, NULL, &destRect);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 }
 
 /**
@@ -382,7 +380,6 @@ void renderMenu(SDL_Texture *menu_background) {
   destRect.y = 0;
   destRect.w = SCREEN_WIDTH;
   destRect.h = SCREEN_HEIGHT;
-
   SDL_RenderCopy(renderer, menu_background, NULL, &destRect);
   SDL_RenderPresent(renderer);
 }
@@ -461,15 +458,13 @@ void clearScreen() {
  * Renders the side menu
  */
 void renderSideMenu() {
-
   SDL_Rect destRect;
   destRect.x = 600;
   destRect.y = 0;
   destRect.w = SCREEN_SIDEBAR_WIDTH;
   destRect.h = SCREEN_HEIGHT;
-
   SDL_RenderCopy(renderer, queen_texture, NULL, &destRect);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 }
 
 /**

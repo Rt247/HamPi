@@ -46,8 +46,9 @@ void setLevel(squareState **currentMap, squareState **levelMap,
 
 void freeMap(squareState **mapPtr);
 
-move getMove(squareState **currentMap, playerPosition *currentPos,
-                  int rows, int cols);
+move getMove();
+//move getMove(squareState **currentMap, playerPosition *currentPos,
+//                  int rows, int cols);
 
 _Bool checkValidMove(squareState **currentMap, playerPosition *currentPos,
                      int rows, int cols, move mov);

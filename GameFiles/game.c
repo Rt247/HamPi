@@ -123,7 +123,7 @@ void creditMenuLogic(gameState_t *currGame) {
                                                      SELECTION_DISPLACEMENT
                                       + 5,
                     X_WIDTH_SIZE, Y_WIDTH_SIZE - 25, 0, 0, 255);
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 
   int game_running = 1;
   //Loop for getting the user input to continue
@@ -297,7 +297,7 @@ void endlevelMenuLogic(gameState_t *currGame) {
         clearScreen();
         currGame->head = updateLeaderBoard(currGame->head,
                                            currGame->timer_count);
-        writeLeaderBoard("Files/leaderboard", currGame->head);
+        writeLeaderBoard("../Files/leaderboard", currGame->head);
         initialiseGameState(currGame);
         loadSavedLevel(currGame);
       }
@@ -328,7 +328,7 @@ void endlevelMenuLogic(gameState_t *currGame) {
       saveLevel(currGame);
       currGame->head = updateLeaderBoard(currGame->head,
                                          currGame->timer_count);
-      writeLeaderBoard("Files/leaderboard", currGame->head);
+      writeLeaderBoard("../Files/leaderboard", currGame->head);
 
 
       //Render the end menu screen as well implement the interface
@@ -376,15 +376,15 @@ void loadSavedLevel(gameState_t *currGame) {
 
   freeCurrGame(currGame);
   currGame->start_time = SDL_GetTicks();
-  currGame->levelMap = readMap("Files/saved_level.txt", &(currGame->rows), &
+  currGame->levelMap = readMap("../Files/saved_level.txt", &(currGame->rows), &
       (currGame->cols));
   findPlayerPos(currGame);
   currGame->level = getMapPtr(currGame->rows, currGame->cols);
   setLevel(currGame->level, currGame->levelMap, &(currGame->playerPos),
            &(currGame->initPosLevel), currGame->rows, currGame->cols);
-  readLeaderBoard("Files/leaderboard", currGame->head);
+  readLeaderBoard("../Files/leaderboard", currGame->head);
   currGame->count = countUnstepped(currGame->levelMap, currGame->rows, currGame->cols);
-  playerPosition **tempSolArr = readSolution("Files/saved_level_solution");
+  playerPosition **tempSolArr = readSolution("../Files/saved_level_solution");
   memcpy(currGame->solArray, tempSolArr, currGame->count * sizeof(playerPosition *));
   currGame->nMoves = 0;
   renderStage(currGame->level, currGame->endPosLevel, currGame->rows, currGame->cols);

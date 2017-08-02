@@ -5,21 +5,13 @@
 #include "draw.h"
 #include <assert.h>
 
-squareState r1[] = {UNSTEPPED, END_POSITION, BLACK_SPACE};
-squareState r2[] = {UNSTEPPED, UNSTEPPED, UNSTEPPED};
-squareState r3[] = {BLACK_SPACE, PLAYER, UNSTEPPED};
-squareState *level1[] = {r1,r2, r3};
-playerPosition initPosLevel1 = {2, 1};
-
-
 squareState **getMapPtr(int rows, int cols) {
   squareState **mapPtr = (squareState **) malloc(rows * sizeof(squareState *));
   if (mapPtr == NULL) {
     perror("Unable to allocate memory for the map pointers!");
     exit(EXIT_FAILURE);
   }
-  mapPtr[0]
-      = (squareState *)calloc((size_t) (rows * cols), sizeof(squareState));
+  mapPtr[0] = (squareState *) calloc((size_t) (rows * cols), sizeof(squareState));
   if (mapPtr[0] == NULL) {
     perror("Unable to allocate memory for the map!");
     exit(EXIT_FAILURE);
@@ -40,9 +32,8 @@ squareState **initMap(squareState **mapPtr, squareState **levelMap, int rows, in
 }
 
 
-
 void freeMap(squareState **mapPtr) {
-  if(mapPtr != NULL) {
+  if (mapPtr != NULL) {
     free(mapPtr[0]);
     free(mapPtr);
   }
@@ -60,8 +51,8 @@ playerPosition *initPosition(int r, int c) {
 }
 
 void setLevel(squareState **currentMap, squareState **levelMap,
-                playerPosition *currentPos, playerPosition *initPos,
-                int rows, int cols) {
+              playerPosition *currentPos, playerPosition *initPos,
+              int rows, int cols) {
   initMap(currentMap, levelMap, rows, cols);
   currentPos->r = initPos->r;
   currentPos->c = initPos->c;
@@ -76,15 +67,19 @@ leaderBoard *allocateLeaderBoard(void) {
   return ptr;
 }
 
-move getMove(squareState **currentMap, playerPosition *currentPos,
-             int rows, int cols) {
+move getMove() {
   if (event.type == SDL_KEYDOWN) {
     switch (event.key.keysym.sym) {
-      case SDLK_UP: return UP;
-      case SDLK_DOWN: return DOWN;
-      case SDLK_LEFT: return LEFT;
-      case SDLK_RIGHT: return RIGHT;
-      default: return NO_MOVE;
+      case SDLK_UP:
+        return UP;
+      case SDLK_DOWN:
+        return DOWN;
+      case SDLK_LEFT:
+        return LEFT;
+      case SDLK_RIGHT:
+        return RIGHT;
+      default:
+        return NO_MOVE;
     }
   }
   return NO_MOVE;
@@ -95,19 +90,19 @@ _Bool checkValidMove(squareState **currentMap, playerPosition *currentPos,
   switch (mov) {
     case UP:
       return (currentPos->r > 0) &&
-          (currentMap[(currentPos->r) - 1][currentPos->c] == UNSTEPPED ||
+             (currentMap[(currentPos->r) - 1][currentPos->c] == UNSTEPPED ||
               currentMap[(currentPos->r) - 1][currentPos->c] == END_POSITION);
     case DOWN:
       return (currentPos->r < (rows - 1)) &&
-          (currentMap[(currentPos->r) + 1][currentPos->c] == UNSTEPPED ||
+             (currentMap[(currentPos->r) + 1][currentPos->c] == UNSTEPPED ||
               currentMap[(currentPos->r) + 1][currentPos->c] == END_POSITION);
     case LEFT:
       return (currentPos->c > 0) &&
-          (currentMap[currentPos->r][(currentPos->c) - 1] == UNSTEPPED ||
+             (currentMap[currentPos->r][(currentPos->c) - 1] == UNSTEPPED ||
               currentMap[currentPos->r][(currentPos->c) - 1] == END_POSITION);
     case RIGHT:
       return (currentPos->c < (cols - 1)) &&
-          (currentMap[currentPos->r][(currentPos->c) + 1] == UNSTEPPED ||
+             (currentMap[currentPos->r][(currentPos->c) + 1] == UNSTEPPED ||
               currentMap[currentPos->r][(currentPos->c) + 1] == END_POSITION);
     default:
       return 1;
@@ -115,8 +110,9 @@ _Bool checkValidMove(squareState **currentMap, playerPosition *currentPos,
 }
 
 int movePlayer(squareState **currentMap, playerPosition *currentPos,
-                int rows, int cols) {
-  move mov = getMove(currentMap, currentPos, rows, cols);
+               int rows, int cols) {
+  move mov = getMove();
+  // move mov = getMove(currentMap, currentPos, rows, cols);
   if (checkValidMove(currentMap, currentPos, rows, cols, mov)) {
     int rCurr = currentPos->r;
     int cCurr = currentPos->c;
@@ -233,20 +229,20 @@ void resetLeaderBoard(leaderBoard *head) {
 }
 
 leaderBoard *getLeaderBoardElem(leaderBoard *head, int pos) {
-    assert(pos >= 1 && pos <= 3);
-    if (pos == 1) {
-        return head;
-    } else if (pos == 2) {
-        return head->next;
-    } else {
-        return head->next->next;
-    }
+  assert(pos >= 1 && pos <= 3);
+  if (pos == 1) {
+    return head;
+  } else if (pos == 2) {
+    return head->next;
+  } else {
+    return head->next->next;
+  }
 }
 
 void freeLeaderBoard(leaderBoard *head) {
-    free(head->next->next);
-    free(head->next);
-    free(head);
+  free(head->next->next);
+  free(head->next);
+  free(head);
 }
 
 
