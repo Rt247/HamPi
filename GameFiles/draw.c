@@ -352,7 +352,7 @@ void renderEndScreen() {
   SDL_RenderCopy(renderer, end_screen, NULL, &destRect);
   renderEndSideMenu();
 
-  SDL_RenderPresent(renderer);
+  // SDL_RenderPresent(renderer);
 }
 
 /**

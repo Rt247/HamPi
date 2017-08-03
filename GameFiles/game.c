@@ -67,6 +67,9 @@ void mainMenuLogic(gameState_t *currGame) {
         initialiseGameState(currGame);
         loadSavedLevel(currGame);
       }
+      // added now
+      SDL_RenderPresent(renderer);
+      resetLevel(currGame);
       break;
     case OPTIONS:
 
@@ -123,7 +126,7 @@ void creditMenuLogic(gameState_t *currGame) {
                                                      SELECTION_DISPLACEMENT
                                       + 5,
                     X_WIDTH_SIZE, Y_WIDTH_SIZE - 25, 0, 0, 255);
-  // SDL_RenderPresent(renderer);
+  SDL_RenderPresent(renderer);
 
   int game_running = 1;
   //Loop for getting the user input to continue
@@ -143,7 +146,7 @@ void creditMenuLogic(gameState_t *currGame) {
       SDL_Delay(delay);
     }
     // SDL_Delay(120);
-    SDL_RenderPresent(renderer);
+    // SDL_RenderPresent(renderer);
   }
 }
 
@@ -174,6 +177,8 @@ void levelMenuLogic(gameState_t *currGame) {
 
       renderStage(currGame->level, currGame->endPosLevel, currGame->rows,
                   currGame->cols);
+      // added now
+      SDL_RenderPresent(renderer);
       break;
     case MAIN_MENU:
       clearScreen();
@@ -209,6 +214,7 @@ void levelMenuLogic(gameState_t *currGame) {
       clearScreen();
       stopMusic(500);
 
+      SDL_RenderPresent(renderer);
       //Draw the screen frame by frame
       renderRect(renderer, SCREEN_WIDTH, 0, SCREEN_SIDEBAR_WIDTH, SCREEN_HEIGHT, 0, 0,
                  0);
@@ -217,7 +223,7 @@ void levelMenuLogic(gameState_t *currGame) {
       clearScreen();
 
       //Clear the current game parameters
-      //freeCurrGame(currGame);
+      // freeCurrGame(currGame);
 
       //Render the main menu screen as well implement the interface
       // for that screen
@@ -234,6 +240,8 @@ void levelMenuLogic(gameState_t *currGame) {
         renderMenu(main_menu_background);
         mainMenuLogic(currGame);
       }
+      SDL_RenderPresent(renderer);
+      resetLevel(currGame);
 
       break;
   }
@@ -289,23 +297,24 @@ void endlevelMenuLogic(gameState_t *currGame) {
   //Switch based on the user input
   switch (currChoice) {
     case NEXT_LEVEL:
+      clearScreen();
       if (currGame->currGameMode == RANDOM) {
 
         currGame->timer_count = 0;
         currGame->level_menu_timer = 0;
-        clearScreen();
         //Loads the next level as well as incrementing the level
         incrementLevel(currGame);
         loadRandomLevel(currGame);
       } else if (currGame->currGameMode == SAVED) {
         //Loads the saved level again to replay it
-        clearScreen();
         currGame->head = updateLeaderBoard(currGame->head,
                                            currGame->timer_count);
         writeLeaderBoard("../Files/leaderboard", currGame->head);
         initialiseGameState(currGame);
         loadSavedLevel(currGame);
       }
+      // added now
+      resetLevel(currGame);
       break;
     case MAIN_MENU:
       clearScreen();
@@ -354,7 +363,7 @@ void endlevelMenuLogic(gameState_t *currGame) {
  * @param currGame is the gameState struct
  */
 void loadRandomLevel(gameState_t *currGame) {
-
+  clearScreen();
   freeCurrGame(currGame);
   currGame->start_time = SDL_GetTicks();
   resetLeaderBoard(currGame->head);
@@ -437,6 +446,7 @@ menuOptions_t getMenuInput(menuOptions_t choices[], int num_options,
                     Y_DISP + index * Y_WIDTH_SIZE,
                     X_WIDTH_SIZE,
                     Y_WIDTH_SIZE, 0, 0, 255);
+  SDL_RenderPresent(renderer);
 
   int game_running = 1;
   //The loop for the input choices
@@ -477,6 +487,7 @@ menuOptions_t getMenuInput(menuOptions_t choices[], int num_options,
                         Y_DISP + index * Y_WIDTH_SIZE,
                         X_WIDTH_SIZE,
                         Y_WIDTH_SIZE, 0, 0, 255);
+      SDL_RenderPresent(renderer);
     }
     if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_UP) {
 
@@ -502,13 +513,14 @@ menuOptions_t getMenuInput(menuOptions_t choices[], int num_options,
                         Y_DISP + index * Y_WIDTH_SIZE,
                         X_WIDTH_SIZE,
                         Y_WIDTH_SIZE, 0, 0, 255);
+      SDL_RenderPresent(renderer);
     }
     int delay = 1000 / MENU_FPS_LIMIT - SDL_GetTicks() + lastTicks;
     if (delay > 0) {
       SDL_Delay(delay);
     }
     // SDL_Delay(120);
-    SDL_RenderPresent(renderer);
+    // SDL_RenderPresent(renderer);
   }
   return choices[index];
 }

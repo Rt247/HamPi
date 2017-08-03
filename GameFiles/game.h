@@ -20,8 +20,8 @@
 #define Y_DISP_THIRD 300
 #define Y_WIDTH_SIZE_OPT 55
 #define X_WIDTH_SIZE_OPT 144
-#define MENU_FPS_LIMIT 10
-#define GIVE_UP_FPS_LIMIT 3
+#define MENU_FPS_LIMIT 15
+#define GIVE_UP_FPS_LIMIT 15
 
 typedef enum gameMode {
   RANDOM,
