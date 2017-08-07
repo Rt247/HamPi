@@ -1,6 +1,11 @@
 # HamPi
 ACTIVE: Source Code for First Year ARM11 Group project Team HamPi
 
+## Note
+The original host for this project was on the Imperial College GitLab servers, therefore the commits
+represented on GitHub are not representative of the total work done by each contributor.
+If you would like to know who wrote a certain section of code, please just ask!
+
 /*Cmake file for linking Clion*/
 
 /*You generally want to install the development library for your system.*/
